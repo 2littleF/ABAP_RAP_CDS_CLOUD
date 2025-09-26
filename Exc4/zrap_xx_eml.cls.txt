@@ -1,0 +1,79 @@
+CLASS zrap_xx_eml DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    INTERFACES if_oo_adt_classrun .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zrap_xx_eml IMPLEMENTATION.
+
+
+  METHOD if_oo_adt_classrun~main.
+    DATA: gt_read_import   TYPE TABLE FOR READ IMPORT zxx_i_travel,
+          gs_read_import   LIKE LINE OF gt_read_import,
+          gt_read_result   TYPE TABLE FOR READ RESULT zxx_i_travel,
+          gs_read_result   LIKE LINE OF gt_read_result,
+          gt_update_import TYPE TABLE FOR UPDATE zxx_i_travel,
+          gs_update_import LIKE LINE OF gt_update_import.
+
+    DATA: gs_failed TYPE RESPONSE FOR FAILED zxx_i_travel.
+    DATA: gs_reported TYPE RESPONSE FOR REPORTED zxx_i_travel.
+
+    DATA: travelid TYPE zdmotravel_xx-travel_id.
+
+    "SELECT SINGLE travelid FROM zxx_i_travel
+    "INTO @DATA(travelid).
+    travelid = '00000004'.
+    gs_read_import-%tky = travelid.
+    APPEND gs_read_import TO gt_read_import.
+
+    READ ENTITY zxx_i_travel
+    ALL FIELDS WITH gt_read_import
+    RESULT gt_read_result
+    FAILED gs_failed.
+
+    IF gs_failed IS NOT INITIAL.
+
+    ENDIF.
+    LOOP AT gt_read_result INTO gs_read_result.
+      DATA ausgabe TYPE string.
+      ausgabe =  | Entität: { gs_read_result-TravelID } |
+           & | Status: { gs_read_result-Overallstatus } wird geändert |.
+      out->write( ausgabe ).
+      CLEAR gs_update_import.
+      gs_update_import-%tky = gs_read_result-%tky.
+      IF gs_read_result-Overallstatus = 'O'.
+        gs_update_import-OverallStatus = 'A'.
+      ELSE.
+        gs_update_import-OverallStatus = 'O'.
+      ENDIF.
+      APPEND gs_update_import TO gt_update_import.
+    ENDLOOP.
+
+
+
+    MODIFY ENTITY zxx_i_travel
+        UPDATE FIELDS ( OverallStatus ) WITH gt_update_import
+        FAILED gs_failed.
+
+    IF gs_failed IS NOT INITIAL.
+      ausgabe = 'Fehler bei Update, Rollback'.
+      out->write( ausgabe ).
+      ROLLBACK ENTITIES.
+    ELSE.
+      COMMIT ENTITIES.
+      ausgabe = 'Update erfolgreich'.
+      out->write( ausgabe ).
+    ENDIF.
+
+
+    "out->write( 'Hello Cloud' ).
+  ENDMETHOD.
+ENDCLASS.
