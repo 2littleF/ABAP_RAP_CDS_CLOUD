@@ -23,7 +23,7 @@ Füge in der Behavior Definition für den Root ZXX_I_TRAVEL eine neue Action SET
 - Lege die Methode über einen Quick-Fix an
 - Füge action SET_TO_CANCELLED hinzu
 
-Passe die Methode SET_TO_CANCELLED an
+Passe die Methode SET_TO_CANCELLED an. Alle Anpasssungen werden in den Local Types implementiert.
 - Lese in der Methode aus dem RAP BO ZXX_I_TRAVEL die Reise(n) aus, um den Status zu prüfen
 - Prüfe über eine Schleife, ob der Status bereits Cancelled ist, gebe dann eine Instanz der Exception Class mit severity if_abap_behv_message~severity-error.
   Gib die Nachricht über den Export-Parameter REPORTED zurück mit passenden Schlüssel des Fluges
