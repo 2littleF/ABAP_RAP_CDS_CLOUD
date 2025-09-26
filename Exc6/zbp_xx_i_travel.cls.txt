@@ -1,0 +1,56 @@
+CLASS lhc_ZXX_I_TRAVEL DEFINITION INHERITING FROM cl_abap_behavior_handler.
+  PRIVATE SECTION.
+
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      IMPORTING keys REQUEST requested_authorizations FOR zxx_i_travel RESULT result.
+
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR zxx_i_travel RESULT result.
+    METHODS set_to_cancelled FOR MODIFY
+      IMPORTING keys FOR ACTION zxx_i_travel~set_to_cancelled.
+
+ENDCLASS.
+
+CLASS lhc_ZXX_I_TRAVEL IMPLEMENTATION.
+
+  METHOD get_instance_authorizations.
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
+  ENDMETHOD.
+
+  METHOD set_to_cancelled.
+
+    READ ENTITY IN LOCAL MODE zxx_i_travel
+    ALL FIELDS WITH CORRESPONDING #( keys )
+    RESULT DATA(lt_travel).
+
+    LOOP AT lt_travel ASSIGNING FIELD-SYMBOL(<ls_travel>).
+      IF <ls_travel>-OverallStatus = 'X'.
+        APPEND VALUE #( %tky = <ls_travel>-%tky
+                        %msg = NEW zcm_xx_travel( textid = zcm_xx_travel=>already_cancelled
+                                                  severity = if_abap_behv_message=>severity-error )
+                      ) TO reported-travelxx.
+      ELSE.
+        MODIFY ENTITY IN LOCAL MODE zxx_i_travel
+        UPDATE FIELDS ( OverallStatus )
+        WITH VALUE #(
+                        ( %tky = <ls_travel>-%tky
+                          OverallStatus = 'X' )
+                    )
+                    FAILED DATA(ls_failed).
+        IF ls_failed IS INITIAL.
+          APPEND VALUE #( %tky = <ls_travel>-%tky
+                          %msg = NEW zcm_xx_travel( textid = zcm_xx_travel=>cancel_success
+                                                    severity = if_abap_behv_message=>severity-success
+                                                  )
+                        ) TO reported-travelxx.
+        ENDIF.
+      ENDIF.
+    ENDLOOP.
+
+
+
+  ENDMETHOD.
+
+ENDCLASS.
