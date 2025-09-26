@@ -26,9 +26,9 @@
 **Passe die Methode SET_TO_CANCELLED an. Alle Anpasssungen werden in den Local Types implementiert.**
 - Lese in der Methode aus dem RAP BO ZXX_I_TRAVEL die Reise(n) aus, um den Status zu prüfen
 - Prüfe über eine Schleife, ob der Status bereits Cancelled ist, gebe dann eine Instanz der Exception Class mit severity if_abap_behv_message~severity-error.
-  Gib die Nachricht über den Export-Parameter REPORTED zurück mit passenden Schlüssel des Fluges
-  Alternativ storniere den Flug über MODIFY ENTITY über eine Update-Tabelle.
-  Ist der Update erfolgreich (gs_failed ist initial), erzeuge eine Instanz der Exception Class mit der Text Id CANCEL_SUCCESS und der severity if_abap_behv_message~severity-success.
+- Gib die Nachricht über den Export-Parameter REPORTED zurück mit passenden Schlüssel des Fluges
+- Alternativ storniere den Flug über MODIFY ENTITY über eine Update-Tabelle.
+- Ist der Update erfolgreich (gs_failed ist initial), erzeuge eine Instanz der Exception Class mit der Text Id CANCEL_SUCCESS und der severity if_abap_behv_message~severity-success.
   Gib die Nachricht wie zuvor zurück.
 
 **Mache die Action in der Behavior Definition für die Projektion ZXX_C_TRAVEL sichtbar**
