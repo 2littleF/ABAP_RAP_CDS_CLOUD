@@ -32,10 +32,10 @@
   Gib die Nachricht wie zuvor zurück.
 
 **Mache die Action in der Behavior Definition für die Projektion ZXX_C_TRAVEL sichtbar**
-    - use action SET_TO_CANCELLED;
+- use action SET_TO_CANCELLED;
 
 **Füge den Button in den Metadaten für die UI beim Status hinzu**
-    -     lineItem:       [ { position: 100, importance: #HIGH }, { type: #FOR_ACTION, dataAction: 'set_to_cancelled', label: 'Cancel Travel' } ],
+- lineItem:       [ { position: 100, importance: #HIGH }, { type: #FOR_ACTION, dataAction: 'set_to_cancelled', label: 'Cancel Travel' } ],
 
 
 Prüfe die Storno-Funktion im Preview, nutze die ID aus der vorherigen Übungen (Coding ermöglich ein Rücksetzen)
