@@ -1,0 +1,72 @@
+CLASS zxx_rap_fill_zdmo_tables DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    INTERFACES if_oo_adt_classrun .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zxx_rap_fill_zdmo_tables IMPLEMENTATION.
+
+
+  METHOD if_oo_adt_classrun~main.
+
+
+*    DELETE FROM zdmoairport_xx.
+*    INSERT zdmoairport_xx FROM ( SELECT * FROM /dmo/airport ).
+*
+*    DELETE FROM zdmobooking_xx.
+*    INSERT zdmobooking_xx FROM ( SELECT * FROM /dmo/booking ).
+*
+*    DELETE FROM zdmobooksuppl_xx.
+*    INSERT zdmobooksuppl_xx FROM ( SELECT * FROM /dmo/book_suppl ).
+*
+*    DELETE FROM zdmoconn_xx.
+*    INSERT zdmoconn_xx FROM ( SELECT * FROM /dmo/connection ).
+*
+*    DELETE FROM zdmocustomer_xx.
+*    INSERT zdmocustomer_xx FROM ( SELECT * FROM /dmo/customer ).
+*
+*    DELETE FROM zdmoflight_xx.
+*    INSERT zdmoflight_xx FROM ( SELECT * FROM /dmo/flight ).
+
+    DELETE FROM zdmotravel_xx.
+    INSERT zdmotravel_xx FROM ( SELECT
+
+          FROM /dmo/travel AS travel
+          FIELDS
+            travel~travel_id        AS travel_id,
+            travel~agency_id        AS agency_id,
+            travel~customer_id      AS customer_id,
+            travel~begin_date       AS begin_date,
+            travel~end_date         AS end_date,
+            travel~booking_fee      AS booking_fee,
+            travel~total_price      AS total_price,
+            travel~currency_code    AS currency_code,
+            travel~description      AS description,
+            CASE travel~status    "[N(New) | P(Planned) | B(Booked) | X(Cancelled)]
+              WHEN 'N' THEN 'O'
+              WHEN 'P' THEN 'O'
+              WHEN 'B' THEN 'A'
+              ELSE 'X'
+            END                     AS overall_status,
+            travel~createdby        AS created_by,
+            travel~createdat        AS created_at,
+            travel~lastchangedby    AS last_changed_by,
+            travel~lastchangedat    AS last_changed_at
+            ).
+
+*    DELETE FROM zdmotrvlstt_t_xx.
+*    INSERT zdmotrvlstt_t_xx FROM ( SELECT * FROM /dmo/trvl_stat_t ).
+*
+*    DELETE FROM zdmotrvl_stat_xx.
+*    INSERT zdmotrvl_stat_xx FROM ( SELECT * FROM /dmo/trvl_stat ).
+
+  ENDMETHOD.
+ENDCLASS.
