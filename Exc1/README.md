@@ -1,4 +1,4 @@
-CDS Datenmodel anlegen
+#CDS Datenmodel anlegen
 
 - Tabellen anlegen
 - Klasse zxx_rap_fill_zdmo_tables zur Befüllung anlegen
