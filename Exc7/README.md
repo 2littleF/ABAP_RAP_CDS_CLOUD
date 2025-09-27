@@ -17,7 +17,7 @@ Führe eine Wertehilfe ein (Achtung, evtl. Hard-Reload im Browser erforderlich)
   - Im Projection View ZXX_C_TRAVEL wird ein Wertehilfe für die CustomerID benötigt
   - Nutze die Annotation @Consumption.valueHelpDefinition
   - Die Wertehilfe /DMO/I_Customer kann dafür genutzt werden
-  - Gibt es Besonderheiten bei der Wertehilfe?
+  - Gibt es Besonderheiten bei der Wertehilfe, um die Validierung der Eingaben zu steuern?
   https://help.sap.com/docs/ABAP_PLATFORM_NEW/fc4c71aa50014fd1b43721701471913d/0addf879b42e4aa2824f630803ccbdfa.html?locale=en-US
 
 
