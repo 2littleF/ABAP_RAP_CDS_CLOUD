@@ -20,6 +20,10 @@
   
 **Befüllung in der Konsole ausführen**
 
+**Views für die Wertehilfe für den OVerall-Status anlegen
+  ZXX_I_OVERALL_STATUS_VH analog zu /DMO/I_OVERALL_STATUS_VH
+  ZXX_I_OVERALL_STATUS_VH_TEXT analog zu /DMO/I_OVERALL_STATUS_VH_TEXT
+
 **Root-View anlegen ZXX_I_TRAVEL**
   Legen einen Root-View (Normaler CDS mit Zusatz ROOT) für die Reisen an
   Der Root-View hat Assoziationen und entsprechende Pfad-Exponierung zu
