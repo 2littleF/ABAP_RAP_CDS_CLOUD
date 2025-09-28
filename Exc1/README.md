@@ -3,7 +3,7 @@
 **Tabellen anlegen**
   - Lege die Tabellen aus dem Tabellen-Verzeichnis an.
   - Vorlage sind die entsprechenden /DMO/-Tabellen (keine Änderungen auf dem Original)
-    /DMO/TRAVEL => ZDMOTRAVEL_XX
+    /DMO/TRAVEL => ZDMOTRAVEL_XX  
     /DMO/OALL_STAT => ZDMOOALL_STAT_XX
     /DMO/OALL_STAT_T => ZDMOOALLSTAT_TXX
   
