@@ -2,10 +2,10 @@
 
 **Tabellen anlegen**
   - Lege die Tabellen aus dem Tabellen-Verzeichnis an.
-  - Vorlage sind die entsprechenden /DMO/-Tabellen (keine Änderungen auf dem Original)
+  - Vorlage sind die entsprechenden /DMO/-Tabellen (keine Änderungen auf dem Original)  
     /DMO/TRAVEL => ZDMOTRAVEL_XX  
-    /DMO/OALL_STAT => ZDMOOALL_STAT_XX
-    /DMO/OALL_STAT_T => ZDMOOALLSTAT_TXX
+    /DMO/OALL_STAT => ZDMOOALL_STAT_XX  
+    /DMO/OALL_STAT_T => ZDMOOALLSTAT_TXX  
   
 **Klasse zxx_rap_fill_zdmo_tables zur Befüllung anlegen**
   Befülle die Tabellen für Travel und Status mit den Daten aus den Original-Tabellen
