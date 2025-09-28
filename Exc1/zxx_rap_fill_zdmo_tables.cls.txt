@@ -62,8 +62,19 @@ CLASS zxx_rap_fill_zdmo_tables IMPLEMENTATION.
             travel~lastchangedat    AS last_changed_at
             ).
 
-*    DELETE FROM zdmotrvlstt_t_xx.
-*    INSERT zdmotrvlstt_t_xx FROM ( SELECT * FROM /dmo/trvl_stat_t ).
+
+
+    DELETE FROM zdmooall_stat_xx.
+    INSERT zdmooall_stat_xx FROM ( SELECT * FROM /dmo/oall_stat ).
+
+    DATA: status_text TYPE TABLE OF zdmooallstat_txx.
+    status_text = VALUE #(
+                      ( Overall_Status = 'O' Language = 'D' Text = 'Offen' )
+                      ( Overall_Status = 'A' Language = 'D' Text = 'Akzeptiert' )
+                      ( Overall_Status = 'X' Language = 'D' Text = 'Storniert' ) ).
+    DELETE FROM zdmooallstat_txx.
+    INSERT zdmooallstat_txx FROM TABLE @status_text.
+
 *
 *    DELETE FROM zdmotrvl_stat_xx.
 *    INSERT zdmotrvl_stat_xx FROM ( SELECT * FROM /dmo/trvl_stat ).
