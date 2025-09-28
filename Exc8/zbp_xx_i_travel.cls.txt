@@ -1,0 +1,137 @@
+CLASS lhc_ZXX_I_TRAVEL DEFINITION INHERITING FROM cl_abap_behavior_handler.
+  PRIVATE SECTION.
+
+    METHODS get_instance_authorizations FOR INSTANCE AUTHORIZATION
+      IMPORTING keys REQUEST requested_authorizations FOR zxx_i_travel RESULT result.
+
+    METHODS get_global_authorizations FOR GLOBAL AUTHORIZATION
+      IMPORTING REQUEST requested_authorizations FOR zxx_i_travel RESULT result.
+    METHODS set_to_cancelled FOR MODIFY
+      IMPORTING keys FOR ACTION zxx_i_travel~set_to_cancelled.
+    METHODS validatecustomer FOR VALIDATE ON SAVE
+      IMPORTING keys FOR travelxx~validatecustomer.
+    METHODS validatebegindate FOR VALIDATE ON SAVE
+      IMPORTING keys FOR travelxx~validatebegindate.
+
+    METHODS validateduration FOR VALIDATE ON SAVE
+      IMPORTING keys FOR travelxx~validateduration.
+
+    METHODS validateenddate FOR VALIDATE ON SAVE
+      IMPORTING keys FOR travelxx~validateenddate.
+
+ENDCLASS.
+
+CLASS lhc_ZXX_I_TRAVEL IMPLEMENTATION.
+
+  METHOD get_instance_authorizations.
+  ENDMETHOD.
+
+  METHOD get_global_authorizations.
+  ENDMETHOD.
+
+  METHOD set_to_cancelled.
+
+    READ ENTITY IN LOCAL MODE zxx_i_travel
+    ALL FIELDS WITH CORRESPONDING #( keys )
+    RESULT DATA(lt_travel).
+
+    LOOP AT lt_travel ASSIGNING FIELD-SYMBOL(<ls_travel>).
+      IF <ls_travel>-OverallStatus = 'X'.
+        APPEND VALUE #( %tky = <ls_travel>-%tky
+                        %msg = NEW zcm_xx_travel( textid = zcm_xx_travel=>already_cancelled
+                                                  severity = if_abap_behv_message=>severity-error )
+                      ) TO reported-travelxx.
+      ELSE.
+        MODIFY ENTITY IN LOCAL MODE zxx_i_travel
+        UPDATE FIELDS ( OverallStatus )
+        WITH VALUE #(
+                        ( %tky = <ls_travel>-%tky
+                          OverallStatus = 'X' )
+                    )
+                    FAILED DATA(ls_failed).
+        IF ls_failed IS INITIAL.
+          APPEND VALUE #( %tky = <ls_travel>-%tky
+                          %msg = NEW zcm_xx_travel( textid = zcm_xx_travel=>cancel_success
+                                                    severity = if_abap_behv_message=>severity-success
+                                                  )
+                        ) TO reported-travelxx.
+        ENDIF.
+      ENDIF.
+    ENDLOOP.
+
+
+
+  ENDMETHOD.
+
+  METHOD ValidateCustomer.
+
+    READ ENTITY IN LOCAL MODE zxx_i_travel
+        ALL FIELDS WITH CORRESPONDING #( keys )
+        RESULT DATA(lt_travel).
+
+    LOOP AT lt_travel INTO DATA(ls_travel).
+      SELECT SINGLE @abap_true FROM /dmo/customer
+          WHERE customer_id = @ls_travel-CustomerID
+          INTO @DATA(customer_exists) .
+      IF customer_exists = abap_false.
+        APPEND VALUE #( %tky = ls_travel-%tky
+                        %element = VALUE #( customerid = if_abap_behv=>mk-on )
+                        %msg = NEW zcm_xx_travel( textid = zcm_xx_travel=>customer_not_exists
+                                                  severity = if_abap_behv_message=>severity-error )
+                      ) TO reported-travelxx.
+        APPEND CORRESPONDING #( ls_travel ) TO failed-travelxx.
+      ENDIF.
+    ENDLOOP.
+
+  ENDMETHOD.
+
+  METHOD ValidateBeginDate.
+    READ ENTITY IN LOCAL MODE zxx_i_travel
+      ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_travel).
+    LOOP AT lt_travel INTO DATA(ls_travel).
+      IF ls_travel-BeginDate IS INITIAL OR ls_travel-BeginDate < cl_abap_context_info=>get_system_date( ).
+        APPEND VALUE #( %tky = ls_travel-%tky
+                        %element = VALUE #( BeginDate = if_abap_behv=>mk-on )
+                        %msg = NEW zcm_xx_travel( textid = zcm_xx_travel=>invalid_begindate
+                                                  severity = if_abap_behv_message=>severity-error )
+                      ) TO reported-travelxx.
+        APPEND CORRESPONDING #( ls_travel ) TO failed-travelxx.
+      ENDIF.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD ValidateDuration.
+    READ ENTITY IN LOCAL MODE zxx_i_travel
+      ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_travel).
+    LOOP AT lt_travel INTO DATA(ls_travel).
+      IF ls_travel-EndDate IS INITIAL OR ls_travel-endDate < cl_abap_context_info=>get_system_date( ).
+        APPEND VALUE #( %tky = ls_travel-%tky
+                        %element = VALUE #( EndDate = if_abap_behv=>mk-on )
+                        %msg = NEW zcm_xx_travel( textid = zcm_xx_travel=>invalid_enddate
+                                                  severity = if_abap_behv_message=>severity-error )
+                      ) TO reported-travelxx.
+        APPEND CORRESPONDING #( ls_travel ) TO failed-travelxx.
+      ENDIF.
+    ENDLOOP.
+  ENDMETHOD.
+
+  METHOD ValidateEndDate.
+    READ ENTITY IN LOCAL MODE zxx_i_travel
+      ALL FIELDS WITH CORRESPONDING #( keys )
+      RESULT DATA(lt_travel).
+    LOOP AT lt_travel INTO DATA(ls_travel).
+      IF ls_travel-EndDate < ls_travel-BeginDate.
+        APPEND VALUE #( %tky = ls_travel-%tky
+                        %element = VALUE #( EndDate = if_abap_behv=>mk-on
+                                            BeginDate = if_abap_behv=>mk-on )
+                        %msg = NEW zcm_xx_travel( textid = zcm_xx_travel=>invalid_duration
+                                                  severity = if_abap_behv_message=>severity-error )
+                      ) TO reported-travelxx.
+        APPEND CORRESPONDING #( ls_travel ) TO failed-travelxx.
+      ENDIF.
+    ENDLOOP.
+  ENDMETHOD.
+
+ENDCLASS.
