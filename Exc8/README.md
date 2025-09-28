@@ -16,3 +16,8 @@
     Füge den Travel zum Failed-Parameter FAILED-TRAVELXX hinzu (Corresponding zu TRAVEL)  
   - Prüfe den Preview, ob die Prüfung funktioniert  
 
+**Prüfe das Startdatum des Travels**  
+  3 Validationen einbauen  
+  - 1. Prüfung: Das Startdatum darf nicht in der Vergangenheit oder leer sein  
+  - 2. Prüfung: Das Endedatum darf nicht in der Vergangenheit oder leer sein  
+  - 3. Prüfung: Das Endedatum muss nach dem Startdatum liegen  
