@@ -1,0 +1,13 @@
+@EndUserText.label : 'Flight Reference Scenario: OverallStatus Text'
+@AbapCatalog.enhancement.category : #NOT_EXTENSIBLE
+@AbapCatalog.tableCategory : #TRANSPARENT
+@AbapCatalog.deliveryClass : #A
+@AbapCatalog.dataMaintenance : #RESTRICTED
+define table zdmooallstat_txx {
+
+  key client         : abap.clnt not null;
+  key overall_status : /dmo/overall_status not null;
+  key language       : spras not null;
+  text               : /dmo/overall_status_text;
+
+}
