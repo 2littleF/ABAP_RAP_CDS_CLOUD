@@ -41,6 +41,7 @@ CLASS zxx_rap_fill_zdmo_tables IMPLEMENTATION.
       SELECT FROM /dmo/travel FIELDS
         " client
         uuid( ) AS travel_uuid,
+        travel_id,
         agency_id,
         customer_id,
         begin_date,
