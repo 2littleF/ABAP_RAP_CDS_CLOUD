@@ -33,5 +33,11 @@ und über eine Determination wird die Konsistenz der semantischen Schlüssel sic
     Ordne die Schlüssel der ITAB zu über lt_travel_upd = CORRESPONDING #( keys ) zu  
     Füge über ein Feldsymbol die Travel-Agency hinzu (Änderungsfelder sind leer, weil nur Create beachtet wird)  
     Führe die MODIFIY ENTITY durch  
-    Alle Einträge, wo Du der letzte Änderer bist, sollten jetzt die Agency haben  
+    Alle Einträge, wo Du der letzte Änderer bist, sollten jetzt die Agency haben
+
+**Setze Create-Informationen**  
+  - Es fehlen noch das Createby und Createat  
+    Setze es über Semantische Annotationen in Root-CDS ZXX_I_TRAVEL
+
+    
     
