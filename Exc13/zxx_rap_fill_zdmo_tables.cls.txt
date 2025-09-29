@@ -1,0 +1,103 @@
+CLASS zxx_rap_fill_zdmo_tables DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
+
+  PUBLIC SECTION.
+
+    INTERFACES if_oo_adt_classrun .
+  PROTECTED SECTION.
+  PRIVATE SECTION.
+ENDCLASS.
+
+
+
+CLASS zxx_rap_fill_zdmo_tables IMPLEMENTATION.
+
+
+  METHOD if_oo_adt_classrun~main.
+
+
+*    DELETE FROM zdmoairport_xx.
+*    INSERT zdmoairport_xx FROM ( SELECT * FROM /dmo/airport ).
+*
+*    DELETE FROM zdmobooking_xx.
+*    INSERT zdmobooking_xx FROM ( SELECT * FROM /dmo/booking ).
+*
+*    DELETE FROM zdmobooksuppl_xx.
+*    INSERT zdmobooksuppl_xx FROM ( SELECT * FROM /dmo/book_suppl ).
+*
+*    DELETE FROM zdmoconn_xx.
+*    INSERT zdmoconn_xx FROM ( SELECT * FROM /dmo/connection ).
+*
+*    DELETE FROM zdmocustomer_xx.
+*    INSERT zdmocustomer_xx FROM ( SELECT * FROM /dmo/customer ).
+*
+*    DELETE FROM zdmoflight_xx.
+*    INSERT zdmoflight_xx FROM ( SELECT * FROM /dmo/flight ).
+
+    DELETE FROM zdmotravel_xx.
+        INSERT zdmotravel_xx FROM (
+      SELECT FROM /dmo/travel FIELDS
+        " client
+        uuid( ) AS travel_uuid,
+        travel_id,
+        agency_id,
+        customer_id,
+        begin_date,
+        end_date,
+        booking_fee,
+        total_price,
+        currency_code,
+        description,
+        CASE status WHEN 'B' THEN 'A'
+                    WHEN 'P' THEN 'O'
+                    WHEN 'N' THEN 'O'
+                    ELSE 'X' END AS overall_status,
+        createdby AS local_created_by,
+        createdat AS local_created_at,
+        lastchangedby AS local_last_changed_by,
+        lastchangedat AS local_last_changed_at,
+        lastchangedat AS last_changed_at
+    ).
+
+    DELETE FROM zdmobooking_xx.
+    INSERT zdmobooking_xx FROM (
+        SELECT
+          FROM /dmo/booking
+            JOIN zdmotravel_xx ON /dmo/booking~travel_id = zdmotravel_xx~travel_id
+            JOIN /dmo/travel ON /dmo/travel~travel_id = /dmo/booking~travel_id
+          FIELDS  "client,
+                  uuid( ) AS booking_uuid,
+                  zdmotravel_xx~travel_uuid AS parent_uuid,
+                  /dmo/booking~booking_id,
+                  /dmo/booking~booking_date,
+                  /dmo/booking~customer_id,
+                  /dmo/booking~carrier_id,
+                  /dmo/booking~connection_id,
+                  /dmo/booking~flight_date,
+                  /dmo/booking~flight_price,
+                  /dmo/booking~currency_code,
+                  CASE /dmo/travel~status WHEN 'P' THEN 'N'
+                                                   ELSE /dmo/travel~status END AS booking_status,
+                  zdmotravel_xx~lastchangedat AS local_last_changed_at
+    ).
+
+
+    DELETE FROM zdmooall_stat_xx.
+    INSERT zdmooall_stat_xx FROM ( SELECT * FROM /dmo/oall_stat ).
+
+    DATA: status_text TYPE TABLE OF zdmooallstat_txx.
+    status_text = VALUE #(
+                      ( Overall_Status = 'O' Language = 'D' Text = 'Offen' )
+                      ( Overall_Status = 'A' Language = 'D' Text = 'Akzeptiert' )
+                      ( Overall_Status = 'X' Language = 'D' Text = 'Storniert' ) ).
+    DELETE FROM zdmooallstat_txx.
+    INSERT zdmooallstat_txx FROM TABLE @status_text.
+
+*
+*    DELETE FROM zdmotrvl_stat_xx.
+*    INSERT zdmotrvl_stat_xx FROM ( SELECT * FROM /dmo/trvl_stat ).
+
+  ENDMETHOD.
+ENDCLASS.
