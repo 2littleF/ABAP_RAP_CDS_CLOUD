@@ -14,7 +14,8 @@ Dazu müssten die Save-Methode etc. aber auch implementiert werden**
   - Entferne das Early_Numbering aus der Behavior Definition  
   - Erweitere das Feld TravelUUID auf numbering : managed
       field ( readonly, numbering : managed ) TravelUUID;  
-      field ( readonly ) TravelID, AgencyID, OverallStatus;  
+      field ( readonly ) TravelID, AgencyID, OverallStatus;
+  - Nehme das Feld ins Mapping auf  
   - Löschen und neu anlegen der Draft Tabelle  
   - Entfernen des Early Numbering aus der Klasse
   - Ändere die Determination für den Semantischen Key auf eine feste TravelID
