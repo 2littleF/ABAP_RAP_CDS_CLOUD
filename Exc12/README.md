@@ -12,6 +12,12 @@ Dazu müssen die Save-Methode etc. aber auch implementiert werden**
   - Entferne das Early_Numbering aus der Behavior Definition
   - Erweitere das Feld TravelID auf numbering : managed
   - Löschen und neu anlegen der Draft Tabelle
+  - Entfernen des Early Numbering aus der Klasse  
+
+**Umstellung auf Authorisierungsprüfung**  
+  - Ändere in der Behavior Definition den Authorization Master auf Instanz
+  - Entferne im Create die globale Prüfung
+  - Gehe in die Behavior Implementation und implementiere eine Methode für die Instanzprüfung  
 
 **Draft Handling in der Fiori Elements App**  
   - Anpassung der Behavior Projection mittels use draft;
