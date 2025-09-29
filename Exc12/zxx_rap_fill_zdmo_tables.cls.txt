@@ -37,36 +37,29 @@ CLASS zxx_rap_fill_zdmo_tables IMPLEMENTATION.
 *    INSERT zdmoflight_xx FROM ( SELECT * FROM /dmo/flight ).
 
     DELETE FROM zdmotravel_xx.
-    DATA(dummy_x16) = cl_system_uuid=>create_uuid_x16_static( ).
-    DATA dummy_travel TYPE TABLE OF zdmotravel_xx.
-    SELECT
-            client,
-             @dummy_x16 AS travel_id,
-          "  travel~travel_id        AS travel_id,
-            travel~agency_id        AS agency_id,
-            travel~customer_id      AS customer_id,
-            travel~begin_date       AS begin_date,
-            travel~end_date         AS end_date,
-            travel~booking_fee      AS booking_fee,
-            travel~total_price      AS total_price,
-            travel~currency_code    AS currency_code,
-            travel~description      AS description,
-            CASE travel~status    "[N(New) | P(Planned) | B(Booked) | X(Cancelled)]
-              WHEN 'N' THEN 'O'
-              WHEN 'P' THEN 'O'
-              WHEN 'B' THEN 'A'
-              ELSE 'X'
-            END                     AS overall_status,
-            travel~createdby        AS created_by,
-            travel~createdat        AS created_at,
-            travel~lastchangedby    AS last_changed_by,
-            travel~lastchangedat    AS last_changed_at
-     FROM /dmo/travel AS travel
-    INTO TABLE @dummy_travel.
-    LOOP AT dummy_travel ASSIGNING FIELD-SYMBOL(<dummy_travel>).
-      <dummy_travel>-travel_id = cl_system_uuid=>create_uuid_x16_static( ).
-    ENDLOOP.
-    INSERT zdmotravel_xx FROM TABLE @dummy_travel.
+        INSERT zdmotravel_xx FROM (
+      SELECT FROM /dmo/travel FIELDS
+        " client
+        uuid( ) AS travel_uuid,
+        agency_id,
+        customer_id,
+        begin_date,
+        end_date,
+        booking_fee,
+        total_price,
+        currency_code,
+        description,
+        CASE status WHEN 'B' THEN 'A'
+                    WHEN 'P' THEN 'O'
+                    WHEN 'N' THEN 'O'
+                    ELSE 'X' END AS overall_status,
+        createdby AS local_created_by,
+        createdat AS local_created_at,
+        lastchangedby AS local_last_changed_by,
+        lastchangedat AS local_last_changed_at,
+        lastchangedat AS last_changed_at
+    ).
+
 
     DELETE FROM zdmooall_stat_xx.
     INSERT zdmooall_stat_xx FROM ( SELECT * FROM /dmo/oall_stat ).
