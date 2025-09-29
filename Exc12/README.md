@@ -21,7 +21,11 @@ Dazu müssen die Save-Methode etc. aber auch implementiert werden**
 
 **Draft Handling in der Fiori Elements App**  
   - Anpassung der Behavior Projection mittels use draft;
-  - Explizit exponierung der 5 Draft Actionts
+  - Explizit Exponierung der 5 Draft Actionts
   - Im Preview einen neuen Flug anlegen, alles leer lassen und ohne Create oder Cancel in die Liste zurückkehren
   - Inhalt der Draft-Tabelle prüfen
 
+**Validierungen an das Draft anpassen**  
+  - Nehme die Validierungen in das Prepare auf, damit sie beim Übergang von Draft auf die aktive Version durchlaufen werden
+  - Passe die Validierungen an, damit Nachrichten vom Type State statt dem Type Transition genutzt werden
+  - 
