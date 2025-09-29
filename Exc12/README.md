@@ -2,7 +2,7 @@
 
 **Achtung: Ab dieser Stelle funktioniert unser EARLY_NUMBERING nicht mehr.  
 Mit Draft kann es nur in Unmanaged-Szenarien verwendet werden.  
-Dazu müssen die Save-Methode etc. aber auch implementiert werden**  
+Dazu müssten die Save-Methode etc. aber auch implementiert werden**  
 
 **Umstellung Datenmodell**  
   - Änderung des Typs für TravelID auf sysuuid_x16  
