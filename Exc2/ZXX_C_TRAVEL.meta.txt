@@ -66,8 +66,7 @@ annotate entity ZXX_C_TRAVEL with
 
   @UI: {
     lineItem:       [ { position: 100, importance: #HIGH } ],
-    identification: [ { position: 100 } ],
-    textArrangement: #TEXT_ONLY
+    identification: [ { position: 100 } ]
   }
   OverallStatus;
 
