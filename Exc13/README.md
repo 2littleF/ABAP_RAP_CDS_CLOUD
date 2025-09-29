@@ -9,5 +9,10 @@
 
 **Definiere die Komposition in der Behavior Definition**  
   - Füge die Child-Entity zur Behavior Definition ZXX_I_TRAVEL hinzu
+    association _Booking { with draft; }
+  - Definiere in der gleichen Datei eine neue Behavior für Booking
   - Linke die Child-Entity zur transparenten Tabelle und erzeuge eine Draft Tabelle
-  - 
+  - Aktiviere interne managed Nummerering der BookingUUID
+  - Setze Readonly: TravelUUID, BookingID, BookingDate, LocalLastChangedAt
+  - Setze Mandatory: CustomerID, AirlineID, ConnectionID, FlightDate, CurrencyCode
+  - Mappe den CDS auf die Datenbanktabelle  
