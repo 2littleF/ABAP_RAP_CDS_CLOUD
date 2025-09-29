@@ -1,0 +1,46 @@
+managed implementation in class zbp_xx_i_travel unique;
+strict ( 2 );
+
+define behavior for ZXX_I_TRAVEL alias TravelXX
+persistent table zdmotravel_xx
+lock master
+authorization master ( instance )
+etag master Lastchangedat
+early numbering
+{
+  create ( authorization : global );
+  update ( features : instance );
+  delete;
+  field ( readonly ) TravelID;
+  field ( readonly ) AgencyID, OverallStatus;
+  field ( mandatory ) EndDate;
+  field ( features : instance ) CustomerID, BeginDate;
+
+
+action ( features : instance ) SET_TO_CANCELLED;
+
+  validation ValidateCustomer on save { create; field CustomerID; }
+  validation ValidateBeginDate on save { create; field BeginDate; }
+  validation ValidateEndDate on save { create; field EndDate; }
+  validation ValidateDuration on save { create; field BeginDate, EndDate; }
+
+  determination determineSemanticKey on modify { create; }
+
+  mapping for zdmotravel_xx corresponding
+    {
+      TravelID      = travel_id;
+      AgencyID      = agency_id;
+      CustomerID    = customer_id;
+      BeginDate     = begin_date;
+      EndDate       = end_date;
+      BookingFee    = booking_fee;
+      TotalPrice    = total_price;
+      CurrencyCode  = currency_code;
+      OverallStatus = overall_status;
+      Createdby     = createdby;
+      Createdat     = createdat;
+    }
+
+
+
+}
