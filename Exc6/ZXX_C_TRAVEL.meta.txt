@@ -67,8 +67,7 @@ annotate entity ZXX_C_TRAVEL with
   @UI: {
     lineItem:       [ { position: 100, importance: #HIGH },
                         { type: #FOR_ACTION, dataAction: 'set_to_cancelled', label: 'Cancel Travel' } ],
-    identification: [ { position: 100 } ],
-    textArrangement: #TEXT_ONLY
+    identification: [ { position: 100 } ]
   }
   OverallStatus;
 
