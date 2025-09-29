@@ -11,6 +11,7 @@ Dazu müssen die Save-Methode etc. aber auch implementiert werden**
   - Prüfe im Data Preview
   - Entferne das Early_Numbering aus der Behavior Definition
   - Erweitere das Feld TravelID auf numbering : managed
+  - Löschen und neu anlegen der Draft Tabelle
 
 **Draft Handling in der Fiori Elements App**  
   - Anpassung der Behavior Projection mittels use draft;
