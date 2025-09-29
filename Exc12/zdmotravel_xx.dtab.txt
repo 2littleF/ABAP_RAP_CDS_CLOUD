@@ -5,8 +5,9 @@
 @AbapCatalog.dataMaintenance : #RESTRICTED
 define table zdmotravel_xx {
 
-  key client     : abap.clnt not null;
-  key travel_id  : sysuuid_x16 not null;
+  key client      : abap.clnt not null;
+  key travel_uuid : sysuuid_x16 not null;
+  travel_id       : /dmo/travel_id;
   agency_id      : /dmo/agency_id;
   customer_id    : /dmo/customer_id;
   begin_date     : /dmo/begin_date;
