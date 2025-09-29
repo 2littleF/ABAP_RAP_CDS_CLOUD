@@ -5,14 +5,19 @@ Mit Draft kann es nur in Unmanaged-Szenarien verwendet werden.
 Dazu müssten die Save-Methode etc. aber auch implementiert werden**  
 
 **Umstellung Datenmodell**  
-  - Änderung des Typs für TravelID auf sysuuid_x16  
+  - Zusätzliches Feld key travel_uuid : sysuuid_x16 not null;  
+  - travel_id ist kein Schlüsselfeld mehr (wird zur Herausforderung bei der Aktivierung)  
   - Umsetzung über Quickfix (Tabelle leeren)  
-  - Änderung der Klassse zur Befüllung auf die Methode cl_system_uuid=>create_uuid_x16_static( )  
+  - Änderung der Klassse zur Befüllung auf die Methode uuid() für die UUID  
+  - Änderung der CDS ZXX_I_TRAVEL und ZXX_C_TRAVEL
   - Prüfe im Data Preview  
   - Entferne das Early_Numbering aus der Behavior Definition  
-  - Erweitere das Feld TravelID auf numbering : managed  
+  - Erweitere das Feld TravelUUID auf numbering : managed
+      field ( readonly, numbering : managed ) TravelUUID;  
+      field ( readonly ) TravelID, AgencyID, OverallStatus;  
   - Löschen und neu anlegen der Draft Tabelle  
-  - Entfernen des Early Numbering aus der Klasse   
+  - Entfernen des Early Numbering aus der Klasse
+  - Ändere die Determination für den Semantischen Key auf eine feste TravelID
 
 **Umstellung auf Authorisierungsprüfung**  
   - Ändere in der Behavior Definition den Authorization Master auf Instanz  
