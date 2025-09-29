@@ -43,6 +43,7 @@ etag master LocalChangedAt
 
   mapping for zdmotravel_xx corresponding
     {
+      TravelUUID     = travel_uuid;
       TravelID       = travel_id;
       AgencyID       = agency_id;
       CustomerID     = customer_id;
