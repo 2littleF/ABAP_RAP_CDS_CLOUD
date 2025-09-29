@@ -35,7 +35,7 @@ define root view entity ZXX_C_TRAVEL
       Description,
 
       @ObjectModel.text.element: ['OverallStatusText'] //case-sensitive
-      @Consumption.valueHelpDefinition: [{ entity: {name: '/DMO/I_Overall_Status_VH', element: 'OverallStatus' }, useForValidation: true }]
+      @Consumption.valueHelpDefinition: [{ entity: {name: 'ZXX_I_OVERALL_STATUS_VH', element: 'OverallStatus' }, useForValidation: true }]
       OverallStatus,
       _OverallStatus._Text.Text as OverallStatusText : localized,
 
