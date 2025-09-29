@@ -14,8 +14,8 @@ etag master LocalChangedAt
   update ( features : instance );
   delete;
 
-  field ( readonly, numbering : managed ) TravelID;
-  field ( readonly ) AgencyID, OverallStatus;
+  field ( readonly, numbering : managed ) TravelUUID;
+  field ( readonly ) TravelID, AgencyID, OverallStatus;
   field ( mandatory ) EndDate;
   field ( features : instance ) CustomerID, BeginDate;
 
