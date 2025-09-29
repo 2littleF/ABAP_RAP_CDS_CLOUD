@@ -208,7 +208,8 @@ CLASS lhc_ZXX_I_TRAVEL IMPLEMENTATION.
         ls_result-%features-%update = if_abap_behv=>fc-o-enabled.
       ENDIF.
 
-      if ls_travel-BeginDate <= cl_abap_context_info=>get_system_date( ).
+      IF ls_travel-BeginDate <= cl_abap_context_info=>get_system_date( )
+      and ls_travel-BeginDate is not INITIAL.
       ls_result-%field-BeginDate = if_abap_behv=>fc-f-read_only.
       ls_result-%field-CustomerID = if_abap_behv=>fc-f-read_only.
       else.
