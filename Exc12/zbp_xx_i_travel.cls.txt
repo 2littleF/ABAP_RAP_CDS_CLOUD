@@ -204,19 +204,21 @@ CLASS lhc_ZXX_I_TRAVEL IMPLEMENTATION.
 
     DATA(user_name) = cl_abap_context_info=>get_user_technical_name(  ).
     DATA agencyID TYPE /dmo/agency-agency_id VALUE '70001'.
+    data travelid type /dmo/travel-travel_id value '0815'.
 
     update_table = CORRESPONDING #( keys ).
 
     LOOP AT update_table ASSIGNING FIELD-SYMBOL(<update_line>).
       IF <update_line>-Lastchangedby IS INITIAL.
         <update_line>-AgencyID = agencyid.
+        <update_line>-TravelID = travelid.
       ELSE.
         DELETE update_table.
       ENDIF.
     ENDLOOP.
 
     MODIFY ENTITY IN LOCAL MODE zxx_i_travel
-        UPDATE FIELDS ( AgencyID )
+        UPDATE FIELDS ( TravelID AgencyID )
         WITH update_table
         REPORTED DATA(ls_reported).
 
