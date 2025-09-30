@@ -1,0 +1,28 @@
+@AccessControl.authorizationCheck: #NOT_REQUIRED
+@EndUserText.label: 'Projektion Booking'
+@Metadata.ignorePropagatedAnnotations: false
+@ObjectModel.semanticKey: ['BookingID']
+@Metadata.allowExtensions: true
+@Search.searchable: true
+define view entity ZXX_C_BOOKING
+  as projection on ZXX_I_BOOKING
+{
+  key BookingUUID,
+      TravelUUID,
+      @Search.defaultSearchElement: true
+      BookingID,
+      BookingDate,
+      @Search.defaultSearchElement: true
+      CustomerID,
+      AirlineID,
+      ConnectionID,
+      FlightDate,
+      @Semantics.amount.currencyCode: 'CurrencyCode'
+      FlightPrice,
+      CurrencyCode,
+      BookingStatus,
+      @Semantics.systemDateTime.localInstanceLastChangedAt: true
+      LocalLastChangedAt,
+      /* Associations */
+      _Travel : redirected to parent ZXX_C_TRAVEL
+}
