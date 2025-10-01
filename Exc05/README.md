@@ -1,7 +1,7 @@
 # Optimistisches Sperrverhalten implementieren
 
 **Für das Sperrverhalten sollen die administrativen Felder Letzer Änderer und Änderungsdatum gefüllt werden,
-wenn eine Datenänderung passiert.**
+wenn eine Datenänderung passiert.**<br>
 - Annotiere die Felder im Datenmodel ZXX_I_TRAVEL mit den semantischen Annotationen
     @Semantics.systemDateTime.lastChangedAt: true
     @Semantics.user.lastChangedBy: true
