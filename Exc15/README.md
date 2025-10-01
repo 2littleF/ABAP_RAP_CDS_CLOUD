@@ -16,3 +16,12 @@
   - Nutze für das Lesen im Composite den Zusatz by \_Pfad
   - Prüfe im Preview
     
+**Validiere die AirlineID**
+  - Führe eine neue Validierung ValidateAirline für Buchung ein für die AirlineID
+  - Create und Changes auf das Feld sind die Trigger
+  - Übernehme es zusätzlich ins Prepare der Root Entity über <child-entity>~<validation name>
+  - Führe einen neuen Fehler in die Message Class ein, wenn die AirlineID leer oder nicht gültig ist
+  - Prüfe die Übergebenen Airlines in einer Loop-Schleife analog den bisherigen Validierungen
+  - Füge in der Fehlermeldung den Pfad %path für den Travel mit  
+  - Test im Preview
+  - 
