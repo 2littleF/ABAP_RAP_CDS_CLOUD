@@ -24,4 +24,4 @@
   - Prüfe die Übergebenen Airlines in einer Loop-Schleife analog den bisherigen Validierungen
   - Füge in der Fehlermeldung den Pfad %path für den Travel mit  
   - Test im Preview
-  - 
+    
