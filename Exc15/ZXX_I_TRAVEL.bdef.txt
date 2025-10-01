@@ -1,0 +1,104 @@
+managed implementation in class zbp_xx_i_travel unique;
+strict ( 2 );
+with draft;
+
+define behavior for ZXX_I_TRAVEL alias TravelXX
+persistent table zdmotravel_xx
+draft table zdmotravel_xxd
+lock master total etag Lastchangedat
+authorization master ( instance )
+etag master LocalChangedAt
+//early numbering
+{
+  create;
+  update ( features : instance );
+  delete;
+
+  association _Booking { create; with draft; }
+
+  field ( readonly, numbering : managed ) TravelUUID;
+  field ( readonly ) TravelID, AgencyID, OverallStatus;
+  field ( mandatory ) EndDate;
+  field ( features : instance ) CustomerID, BeginDate;
+
+
+  action ( features : instance ) SET_TO_CANCELLED;
+
+  validation ValidateCustomer on save { create; field CustomerID; }
+  validation ValidateBeginDate on save { create; field BeginDate; }
+  validation ValidateEndDate on save { create; field EndDate; }
+  validation ValidateDuration on save { create; field BeginDate, EndDate; }
+
+  determination determineSemanticKey on modify { create; }
+
+  draft action Edit;
+  draft action Activate optimized;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare
+  {
+    validation ValidateCustomer;
+    validation ValidateBeginDate;
+    validation ValidateEndDate;
+    validation ValidateDuration;
+    validation BookingXX~ValidateAirlineID;
+  }
+
+  mapping for zdmotravel_xx corresponding
+    {
+      TravelUUID     = travel_uuid;
+      TravelID       = travel_id;
+      AgencyID       = agency_id;
+      CustomerID     = customer_id;
+      BeginDate      = begin_date;
+      EndDate        = end_date;
+      BookingFee     = booking_fee;
+      TotalPrice     = total_price;
+      CurrencyCode   = currency_code;
+      OverallStatus  = overall_status;
+      Createdby      = createdby;
+      Createdat      = createdat;
+      LocalChangedAt = loc_changed_at;
+    }
+
+}
+
+define behavior for ZXX_I_BOOKING alias BookingXX// implementation in class zbp_xx_i_booking unique
+persistent table zdmobooking_xx
+draft table zdmobooking_xxd
+lock dependent by _Travel
+authorization dependent by _Travel
+etag master LocalLastChangedAt
+{
+
+  update;
+  delete;
+
+  association _Travel { with draft; }
+
+  validation ValidateAirlineID on save { create; field AirlineID; }
+  determination determineSemanticKeyBook on modify { create; }
+
+  field ( numbering : managed, readonly ) BookingUUID;
+  field ( readonly ) TravelUUID, BookingID, BookingDate, LocalLastChangedAt;
+  field ( mandatory ) CustomerID, AirlineID, ConnectionID, FlightDate, CurrencyCode;
+
+  mapping for zdmobooking_xx
+    {
+      BookingUUID        = booking_uuid;
+      AirlineID          = carrier_id;
+      BookingDate        = booking_date;
+      BookingID          = booking_id;
+      BookingStatus      = booking_status;
+      ConnectionID       = connection_id;
+      CurrencyCode       = currency_code;
+      CustomerID         = customer_id;
+      FlightDate         = flight_date;
+      FlightPrice        = flight_price;
+      LocalLastChangedAt = local_last_changed_at;
+      TravelUUID         = parent_uuid;
+    }
+
+
+
+}
