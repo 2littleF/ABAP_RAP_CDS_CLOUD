@@ -4,7 +4,7 @@
 das Coding für Operationen und Aktionen erfolgen.**
 
 
-- Erzeuge neue Klasse zrap_xx_eml um eine Entität zu lesen und zu ändern
+- Erzeuge neue Klasse zrap_xx_eml um eine Entität zu lesen und zu ändern  
     Lese in der Main-Methode vom Root-Objekt ZXX_I_TRAVEL über Read Entity  
     einen Flug und gib seinen Status über die Konsole aus.  
     Nutze die Schlüssel-Komponenten der Struktur.  
