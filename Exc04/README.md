@@ -3,7 +3,6 @@
 **Über diesen Weg kann später ein Brownfield-Ansatz mitgenutzt werden, bzw. <br>
 das Coding für Operationen und Aktionen erfolgen.**<br>
 <br>
-<br>
 - Erzeuge eine, in der Konsole ausführbare Klasse zrap_xx_eml um eine Entität zu lesen und zu ändern  <br>
     Lese in der Main-Methode vom Root-Objekt ZXX_I_TRAVEL über Read Entity  <br>
     einen Flug und gib seinen Status über die Konsole aus.  <br>
