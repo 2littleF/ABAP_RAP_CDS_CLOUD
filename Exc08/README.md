@@ -3,7 +3,7 @@
 **Verhinderung der Speicherung von ungültigen Werten**
   - Entferne den Zusatz useForValidation: true in ZXX_C_TRAVEL für die Kundennummer, falls vorhanden<br>
     Die Prüfung soll jetzt über Coding erfolgen und nicht über die Wertehilfe<br>
-<br>
+
 **Prüfe die Kundennummer in der Behavior Definition und Implementation**  <br>
   - Lege in der Behavior Definition ZXX_I_TRAVEL eine Validation für das Feld CustomerID mit dem Namen ValidateCustomer für on save an  <br>
   - Erzeuge die Methode mit Quickfix  <br>
@@ -15,7 +15,7 @@
     Markiere dabei im Element die Customer-ID %element = VALUE #( custmerid = if_abap_behv=>mk-on )  <br>
     Füge den Travel zum Failed-Parameter FAILED-TRAVELXX hinzu (Corresponding zu TRAVEL)  <br>
   - Prüfe den Preview, ob die Prüfung funktioniert  <br>
-<br>
+
 **Prüfe das Startdatum des Travels**  <br>
   3 Validationen einbauen  <br>
   - 1. Prüfung: Das Startdatum darf nicht in der Vergangenheit oder leer sein  <br>
