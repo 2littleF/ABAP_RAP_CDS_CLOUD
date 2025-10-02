@@ -9,8 +9,8 @@ und über eine Determination wird die Konsistenz der semantischen Schlüssel sic
     Gibt es Felder mit initialen Werten?  <br>
     Sind die Felder für Änderungen initial?   <br>
     Was passiert, wenn noch ein Travel angelegt werden soll?  <br>
-<br>
-**Aktiviere die interne Nummerierung**  
+
+**Aktiviere die interne Nummerierung**  <br>
   - Aktiviere die Nummerierung in der Behavior Definition von ZXX_I_TRAVEL,  <br>
   TravelID soll nur Read-Only sein und intern nummeriert werden  <br>
   Warum geht field ( readonly, numbering : managed ) TravelID; nicht?  <br>
@@ -24,8 +24,8 @@ und über eine Determination wird die Konsistenz der semantischen Schlüssel sic
   - Erweitere die bisherigen Validierungen, damit sie auch bei Create greifen  <br>
   Was passiert, wenn jetzt im Preview ein neuer Travel angelegt werden soll?  <br>
   Prüfe den Ablauf auch im Debugger, insbesonder die %-Felder  <br>
-<br>
-**Determination für semantische Key-Felder**  
+
+**Determination für semantische Key-Felder**  <br>
   - Setze die AgencyID in Abhängigkeit vom User  <br>
     In unserem Beispiel ermitteln wir die Agency nicht, sondern setzen einen Festwert.  <br>
     Füge in die Behavior Defintion von ZXX_I_TRAVEL eine neue Determination determineSemanticKey on modify { create; } ein <br>
@@ -34,8 +34,8 @@ und über eine Determination wird die Konsistenz der semantischen Schlüssel sic
     Füge über ein Feldsymbol die Travel-Agency hinzu (Änderungsfelder sind leer, weil nur Create beachtet wird)  <br>
     Führe die MODIFIY ENTITY durch  <br>
     Alle Einträge, wo Du der letzte Änderer bist, sollten jetzt die Agency haben<br>
-<br>
-**Setze Create-Informationen** 
+
+**Setze Create-Informationen** <br>
   - Es fehlen noch das Createby und Createat  <br>
     Setze es über Semantische Annotationen in Root-CDS ZXX_I_TRAVEL<br>
 
