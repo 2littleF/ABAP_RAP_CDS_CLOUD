@@ -2,7 +2,7 @@
 
 **Für den Create von Travel wird die interne Nummervergabe über das RAP Framework aktiviert  <br>
 und über eine Determination wird die Konsistenz der semantischen Schlüssel sichergestellt**  <br>
-<br>
+
 **Anlegen von Travel prüfen**  
   - Prüfe, dass Behavior Definition und Behavior Projection das Anlegen per Create erlauben  <br>
   - Lege einen Travel an und prüfe ihn im Data Preview  <br>
