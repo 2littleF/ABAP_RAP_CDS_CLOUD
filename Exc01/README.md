@@ -6,7 +6,7 @@
     /DMO/TRAVEL => ZDMOTRAVEL_XX  <br>
     /DMO/OALL_STAT => ZDMOOALL_STAT_XX  <br>
     /DMO/OALL_STAT_T => ZDMOOALLSTAT_TXX  <br>
-  <br>
+ 
 **Klasse zxx_rap_fill_zdmo_tables zur Befüllung anlegen**
   Befülle die Tabellen für Travel und Status mit den Daten aus den Original-Tabellen  <br>
   Für den Overall-Status gilt das Mapping  <br>
@@ -17,13 +17,13 @@
               ELSE 'X'  <br>
             END    <br>
   Füge in die Text-Tabelle für die Sprache Deutsch (oder die Anmeldesprache) entsprechende Texte ein  <br>
-  <br>
+
 **Befüllung in der Konsole ausführen**<
-<br>
+
 **Views für die Wertehilfe für den OVerall-Status anlegen**  
   ZXX_I_OVERALL_STATUS_VH analog zu /DMO/I_OVERALL_STATUS_VH  <br>
   ZXX_I_OVERALL_STATUS_VH_TEXT analog zu /DMO/I_OVERALL_STATUS_VH_TEXT  <br>
-<br>
+
 **Root-View anlegen ZXX_I_TRAVEL**  
   Legen einen Root-View (Normaler CDS mit Zusatz ROOT) für die Reisen an  <br>
   Der Root-View hat Assoziationen und entsprechende Pfad-Exponierung zu  <br>
@@ -31,6 +31,6 @@
   /DMO/I_Customer          as _Customer  <br>
   ZXX_I_OVERALL_STATUS_VH as _OverallStatus  <br>
   I_Currency               as _Currency  <br>
-  <br>
+
 **Data Preview ausführen**<br>
   
