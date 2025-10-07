@@ -101,7 +101,7 @@ CLASS lhc_ZXX_I_TRAVEL IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
-  METHOD ValidateDuration.
+  METHOD ValidateEndDate.
     READ ENTITY IN LOCAL MODE zxx_i_travel
       ALL FIELDS WITH CORRESPONDING #( keys )
       RESULT DATA(lt_travel).
@@ -117,7 +117,7 @@ CLASS lhc_ZXX_I_TRAVEL IMPLEMENTATION.
     ENDLOOP.
   ENDMETHOD.
 
-  METHOD ValidateEndDate.
+  METHOD ValidateDuration.
     READ ENTITY IN LOCAL MODE zxx_i_travel
       ALL FIELDS WITH CORRESPONDING #( keys )
       RESULT DATA(lt_travel).
