@@ -8,4 +8,7 @@ In der Oberfläche soll zum Flug auch Verbindungsdetails wie die Flughäfen ange
 Berückichtige entsprechende Wertehilfen (z.B. für Connection), Determinationen (z.B. Anzahl Plätze bei Wechsel Plane-Type, aber Achtung, es gibt keine Wertehilfe) und Validationen (z.B. Überbuchungen)<br>
 Optional: Mache es Draft-fähig<br>
 
+**Baue eine Fiori Elements Anwendung um die Reiseagenturen zu verwalten**<br>
+Reiseagenturen anlegen soll möglich sein
+Füge auch Auswertungen in die Object Page ein, als KPI Landing Page
 
